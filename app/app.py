@@ -1,8 +1,10 @@
 from flask import Flask
 import psycopg2
 import os
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 @app.route("/")
 def home():
