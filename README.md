@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # DevOps Flask Project
 
 A simple DevOps portfolio project with Flask, PostgreSQL, Nginx, Docker Compose and GitHub Actions CI.
@@ -25,3 +26,6 @@ User → Nginx → Flask App → PostgreSQL
 
 ```bash
 docker compose up --build
+
+CI test
+
