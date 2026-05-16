@@ -1,4 +1,4 @@
-name: DevOps Flask CI
+name: DevOps Flask CI/CD
 
 on:
   push:
@@ -31,8 +31,28 @@ jobs:
         run: |
           sleep 20
           curl -f http://localhost:8080/health
-          
 
       - name: Stop containers
         if: always()
         run: docker compose down
+
+  deploy:
+    needs: build-test
+    if: github.event_name == 'push'
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create env file
+        run: |
+          echo "DB_HOST=db" > .env
+          echo "DB_NAME=devopsdb" >> .env
+          echo "DB_USER=devopsuser" >> .env
+          echo "DB_PASSWORD=devopspassword" >> .env
+
+      - name: Deploy containers on Ubuntu server
+        run: |
+          docker compose down
+          docker compose up -d --build
