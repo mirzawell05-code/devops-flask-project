@@ -6,13 +6,16 @@ from prometheus_flask_exporter import PrometheusMetrics
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 
+
 @app.route("/")
 def home():
     return "DevOps Flask Project is running!"
 
+
 @app.route("/health")
 def health():
     return {"status": "ok"}
+
 
 @app.route("/users")
 def users():
@@ -34,3 +37,4 @@ def users():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+    
